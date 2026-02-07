@@ -1,5 +1,5 @@
 const addBtn = document.getElementById("add-question");
-const editBtn = document.getElementById("edit-question");
+const srchBtn = document.getElementById("search-question");
 const delBtn = document.getElementById("delete-question");
 const tQuiz = document.getElementById("show-quiz");
 const pQuiz = document.getElementById("play-quiz");
@@ -7,7 +7,7 @@ const cQuiz = document.getElementById("clear-quiz");
 const qSetDisplay = document.getElementById("question-set");
 const question = document.getElementById("question");
 const iAnswer = document.getElementById("answer");
-const iSumbit = document.getElementById("submit");
+const iSubmit = document.getElementById("submit");
 var quiz = [];
 var seed = [];
 var currentQuestion;
@@ -42,7 +42,7 @@ function addQuestion() {
 }
 function editQuestion() {}
 function deleteQuestion() {}
-function onSumbit() {
+function onSubmit() {
    //checks answer
    if (iAnswer.value == currentQuestion[1]) {
       alert("Correct!");
@@ -78,10 +78,10 @@ function playQuiz() {
    //question # = questionsLeft - quiz.length + 1
    //activate submit button
    newQuestion();
-   iSumbit.addEventListener("click", onSubmit);
+   iSubmit.addEventListener("click", onSubmit);
 }
 function quizEnd() {
-   iSumbit.removeEventListener("click", onSumbit);
+   iSubmit.removeEventListener("click", onSubmit);
    //show quiz statistics
 }
 function clearQuiz() {}
