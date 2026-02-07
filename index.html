@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+   <head>
+      <link rel="stylesheet" href="main.css" />
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Flash Card App (AP CSP)</title>
+   </head>
+   <body>
+      <main>
+         <section id="button-menu">
+            <button id="add-question">Add New Question</button>
+            <button id="edit-question">Edit Question</button>
+            <button id="delete-question">Delete Question</button>
+            <button id="show-quiz">Show Quiz</button>
+            <button id="play-quiz">Play Quiz</button>
+            <button id="clear-quiz">Clear Quiz</button>
+         </section>
+         <hr />
+         <section id="display">
+            <div>
+               <p id="question">[Question Goes Here when you are ready]</p>
+               <form>
+                  <input
+                     type="text"
+                     placeholder="Type Answer Here"
+                     id="answer"
+                  />
+                  <button id="submit">Submit</button>
+               </form>
+            </div>
+         </section>
+         <hr />
+         <section id="quiz-data">
+            <table id="question-set">
+               <th width="10%">Question ID</th>
+               <th>Question</th>
+               <th>Answer</th>
+            </table>
+         </section>
+         <hr />
+      </main>
+      <script src="main.js"></script>
+   </body>
+</html>

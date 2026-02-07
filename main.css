@@ -1,0 +1,54 @@
+body, html {
+   margin: 0;
+   padding: 0;
+   top: 0;
+   left: 0;
+}
+#button-menu {
+   display: flex;
+      align-items: center;
+      justify-content: space-around;
+   padding: 15pt 5pt;
+}
+button {
+   font-size: 100%;
+}
+hr {
+   margin: 0;
+   padding: 0;
+}
+section {
+   margin: 0;
+   padding: 0;
+}
+#display {
+   display: flex;
+      align-items: center;
+      justify-content: center;
+   min-height: 200pt;
+}
+#display div {
+   text-align: center;
+}
+#display p{
+   font-size: 150%;
+}
+#answer, #submit {
+   display:inline-block;
+   font-size: 150%;
+   margin: 0;
+}
+#quiz-data {
+   display: flex;
+      justify-content: center;
+}
+#question-set {
+   background-color: aquamarine;
+   border-collapse: collapse;
+   min-height: 50pt;
+   width: 90%;
+}
+#question-set th, td{
+   border: 1pt solid;
+   border-color: black;
+}
