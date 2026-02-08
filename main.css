@@ -38,17 +38,17 @@ section {
    font-size: 150%;
    margin: 0;
 }
-#quiz-data {
+.table-sec {
    display: flex;
       justify-content: center;
 }
-#question-set {
+table {
    background-color: aquamarine;
    border-collapse: collapse;
    min-height: 50pt;
    width: 90%;
 }
-#question-set th, td{
+th, td{
    border: 1pt solid;
    border-color: black;
 }

@@ -1,7 +1,7 @@
 const addBtn = document.getElementById("add-question");
 const srchBtn = document.getElementById("search-question");
 const delBtn = document.getElementById("delete-question");
-const tQuiz = document.getElementById("show-quiz");
+const mkImportant = document.getElementById("mark-important");
 const pQuiz = document.getElementById("play-quiz");
 const cQuiz = document.getElementById("clear-quiz");
 const qSetDisplay = document.getElementById("question-set");
@@ -9,6 +9,7 @@ const question = document.getElementById("question");
 const iAnswer = document.getElementById("answer");
 const iSubmit = document.getElementById("submit");
 var quiz = [];
+var important = [];
 var seed = [];
 var currentQuestion;
 var questionsLeft;
@@ -30,35 +31,56 @@ function updateQuiz() {
 }
 function addQuestion() {
    let question = prompt("Enter Question:");
-   if (question == "" || question == null) {
+   if (question == null || question == "") {
       return;
    }
    let answer = prompt("Enter Answer:");
-   if (answer == "" || answer == null) {
+   if (answer == null || answer == "") {
       return;
    }
    quiz.push([question, answer]);
    updateQuiz();
 }
-function editQuestion() {}
-function deleteQuestion() {}
+function srchQuestion() {
+   let question = prompt("Which question would you like to find in the Quiz?\nNOTE: This is case and whitespace sensitive");
+   if(question == null || question == "") {
+      return;
+   }
+   index = quiz.findIndex(qPair => qPair[0]===question);
+   if(index == -1) {
+      alert("No Match");
+   } else {
+      alert("Question ID of first occurence: "+String(index+1));
+   };
+
+}
+function deleteQuestion() {
+   delIndex = prompt("Which Question would you want to remove from the quiz?\n(Enter Question ID)");
+   quiz.splice(delIndex-1,1);
+   updateQuiz();
+}
 function onSubmit() {
    //checks answer
+   if(iAnswer.value == null || iAnswer.value == "") {
+      alert("Please Submit an Answer");
+      return;
+   }
    if (iAnswer.value == currentQuestion[1]) {
       alert("Correct!");
    } else {
-      alert("Incorrect!");
+      alert("Incorrect.");
    }
+   iAnswer.value = null;
    if (questionsLeft == 0) {
       endQuiz();
    } else {
       questionsLeft -= 1;
-      nextQuestion();
+      newQuestion();
    }
 }
 function newQuestion() {
    //generate new question
-   currentQuestion = quiz[seed[questionsLeft - quiz.length + 1]];
+   currentQuestion = quiz[seed[quiz.length - questionsLeft-1]];
    question.innerHTML = currentQuestion[0];
 }
 function generateSeed() {
@@ -66,7 +88,7 @@ function generateSeed() {
 }
 function playQuiz() {
    //exit if nothing is in quiz
-   if (quiz.length == 0) {
+   if (quiz.length == 0){
       alert("Quiz is Empty");
       return;
    }
@@ -78,14 +100,22 @@ function playQuiz() {
    //question # = questionsLeft - quiz.length + 1
    //activate submit button
    newQuestion();
-   iSubmit.addEventListener("click", onSubmit);
+   iSubmit.addEventListener("click", (event)=>{
+      event.preventDefault();
+      onSubmit()});
 }
-function quizEnd() {
-   iSubmit.removeEventListener("click", onSubmit);
+function endQuiz() {
+   question.innerHTML = "[End of Quiz]";
+   iSubmit.removeEventListener();
    //show quiz statistics
 }
-function clearQuiz() {}
+function clearQuiz() {
+   quiz = [];
+   updateQuiz();
+}
 //Event Listeners for button menu
 addBtn.addEventListener("click", addQuestion);
-editBtn.addEventListener("click", editQuestion);
+srchBtn.addEventListener("click", srchQuestion);
+delBtn.addEventListener("click", deleteQuestion);
 pQuiz.addEventListener("click", playQuiz);
+cQuiz.addEventListener("click",clearQuiz);
