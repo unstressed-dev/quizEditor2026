@@ -4,6 +4,7 @@ const delBtn = document.getElementById("delete-question");
 const mkImportant = document.getElementById("mark-important");
 const pQuiz = document.getElementById("play-quiz");
 const cQuiz = document.getElementById("clear-quiz");
+const imptDisplay = document.getElementById("important-set");
 const qSetDisplay = document.getElementById("question-set");
 const question = document.getElementById("question");
 const iAnswer = document.getElementById("answer");
@@ -28,6 +29,21 @@ function updateQuiz() {
          "</td></tr>";
    }
    qSetDisplay.innerHTML = table;
+}
+function updateImportant() {
+   //update questions
+   let table = "<th>Question ID</th><th>Question</th><th>Answer</th>";
+   for (var i = 0; i < important.length; i++) {
+      table +=
+         "<tr><td>" +
+         String(i + 1) +
+         "</td><td>" +
+         String(important[i][0]) +
+         "</td><td>" +
+         String(important[i][1]) +
+         "</td></tr>";
+   }
+   imptDisplay.innerHTML = table;
 }
 function addQuestion() {
    let question = prompt("Enter Question:");
@@ -58,6 +74,20 @@ function deleteQuestion() {
    delIndex = prompt("Which Question would you want to remove from the quiz?\n(Enter Question ID)");
    quiz.splice(delIndex-1,1);
    updateQuiz();
+}
+function markAsImportant() {
+   important = [];
+   for(pair of quiz) {
+      let choice = prompt("Mark this question as important?\n"+String(pair[0])+"\ny for yes, anything else for no");
+      if(choice == null) {
+         updateImportant();
+         return;
+      }
+      if(choice.toLowerCase()=="y"||choice.toLowerCase()=="yes") {
+         important.push(pair);
+      }
+   }
+   updateImportant();
 }
 function onSubmit() {
    //checks answer
@@ -94,7 +124,7 @@ function playQuiz() {
    }
    //generate random question sequence, enter it into seed
    //seed = generateSeed();
-   seed = [0, 1, 2];
+   seed = Array.from({ length: quiz.length }, (_, i) => i);;
    //set questions left
    questionsLeft = quiz.length - 1;
    //question # = questionsLeft - quiz.length + 1
@@ -117,5 +147,6 @@ function clearQuiz() {
 addBtn.addEventListener("click", addQuestion);
 srchBtn.addEventListener("click", srchQuestion);
 delBtn.addEventListener("click", deleteQuestion);
+mkImportant.addEventListener("click", markAsImportant);
 pQuiz.addEventListener("click", playQuiz);
 cQuiz.addEventListener("click",clearQuiz);
