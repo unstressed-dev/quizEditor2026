@@ -15,35 +15,19 @@ var seed = [];
 var currentQuestion;
 var questionsLeft;
 //Functions
-function updateQuiz() {
-   //update questions
+function updateDisplay(list, display) {
    let table = "<th>Question ID</th><th>Question</th><th>Answer</th>";
-   for (var i = 0; i < quiz.length; i++) {
+   for (var i = 0; i < list.length; i++) {
       table +=
          "<tr><td>" +
          String(i + 1) +
          "</td><td>" +
-         String(quiz[i][0]) +
+         String(list[i][0]) +
          "</td><td>" +
-         String(quiz[i][1]) +
+         String(list[i][1]) +
          "</td></tr>";
    }
-   qSetDisplay.innerHTML = table;
-}
-function updateImportant() {
-   //update questions
-   let table = "<th>Question ID</th><th>Question</th><th>Answer</th>";
-   for (var i = 0; i < important.length; i++) {
-      table +=
-         "<tr><td>" +
-         String(i + 1) +
-         "</td><td>" +
-         String(important[i][0]) +
-         "</td><td>" +
-         String(important[i][1]) +
-         "</td></tr>";
-   }
-   imptDisplay.innerHTML = table;
+   display.innerHTML = table;
 }
 function addQuestion() {
    let question = prompt("Enter Question:");
@@ -55,7 +39,7 @@ function addQuestion() {
       return;
    }
    quiz.push([question, answer]);
-   updateQuiz();
+   updateDisplay(quiz, qSetDisplay);
 }
 function srchQuestion() {
    let question = prompt("Which question would you like to find in the Quiz?\nNOTE: This is case and whitespace sensitive");
@@ -73,21 +57,21 @@ function srchQuestion() {
 function deleteQuestion() {
    delIndex = prompt("Which Question would you want to remove from the quiz?\n(Enter Question ID)");
    quiz.splice(delIndex-1,1);
-   updateQuiz();
+   updateDisplay(quiz, qSetDisplay);
 }
 function markAsImportant() {
    important = [];
    for(pair of quiz) {
       let choice = prompt("Mark this question as important?\n"+String(pair[0])+"\ny for yes, anything else for no");
       if(choice == null) {
-         updateImportant();
+         updateDisplay(important, imptDisplay);
          return;
       }
       if(choice.toLowerCase()=="y"||choice.toLowerCase()=="yes") {
          important.push(pair);
       }
    }
-   updateImportant();
+   updateDisplay(important, imptDisplay);
 }
 function onSubmit() {
    //checks answer
@@ -141,7 +125,7 @@ function endQuiz() {
 }
 function clearQuiz() {
    quiz = [];
-   updateQuiz();
+   updateDisplay(quiz, qSetDisplay);
 }
 //Event Listeners for button menu
 addBtn.addEventListener("click", addQuestion);
@@ -150,4 +134,4 @@ delBtn.addEventListener("click", deleteQuestion);
 mkImportant.addEventListener("click", markAsImportant);
 pQuiz.addEventListener("click", playQuiz);
 cQuiz.addEventListener("click",clearQuiz);
-updateQuiz();
+updateDisplay(quiz, qSetDisplay);
